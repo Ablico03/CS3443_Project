@@ -29,8 +29,8 @@ public class MainActivity extends ComponentActivity {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText uText = (EditText) findViewById(R.id.name);
-                EditText pText = (EditText) findViewById(R.id.inputPassword);
+                EditText uText = (EditText) findViewById(R.id.userNameString);
+                EditText pText = (EditText) findViewById(R.id.passwordString);
                 int id = authenticate(uText.getText().toString(), pText.getText().toString());
 
                 if(id > 0) {
