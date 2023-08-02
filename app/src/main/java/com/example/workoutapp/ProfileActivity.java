@@ -63,7 +63,7 @@ public class ProfileActivity extends ComponentActivity {
         }
 
         TextView name = (TextView) findViewById(R.id.profNameString);
-        TextView email = (TextView) findViewById(R.id.nameLabelVal);
+        TextView email = (TextView) findViewById(R.id.nameString);
         name.setText(profileInfo.getName());
         email.setText(profileInfo.getEmail());
     }
