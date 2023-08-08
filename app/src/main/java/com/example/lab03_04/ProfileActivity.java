@@ -48,16 +48,17 @@ public class ProfileActivity extends ComponentActivity {
         File f = new File(getFilesDir().getAbsolutePath() + "/accounts.txt");
         Scanner s;
         String str = "";
-        String[] creds = null;
+        String[] arr = null;
 
         try {
             if(f.exists()) {
                 s = new Scanner(openFileInput("accounts.txt"));
                 while (s.hasNext()) {
                     str = s.nextLine();
-                    creds = str.split(",");
-                    if (Integer.parseInt(creds[0]) == id) {
-                        profileInfo = new Account(id, creds[1], creds[2]);
+                    arr = str.split(",");
+                    if (Integer.parseInt(arr[0]) == id) {
+                        /* Profile format id, name, age, weight, goal, heightFt, heightIn, workouts, bday*/
+                        profileInfo = new Account(id, arr[1], Integer.parseInt(arr[2]), Integer.parseInt(arr[3]), Integer.parseInt(arr[4]), Integer.parseInt(arr[5]), Integer.parseInt(arr[6]), arr[7]);
                         break;
                     }
                 }
@@ -69,10 +70,25 @@ public class ProfileActivity extends ComponentActivity {
         }
 
         if (profileInfo != null) {
-            TextView name = (TextView) findViewById(R.id.profNameString);
-            TextView email = (TextView) findViewById(R.id.nameLabelVal);
-            name.setText(profileInfo.getName());
-            email.setText(profileInfo.getEmail());
+            TextView name = (TextView) findViewById(R.id.nameString);
+            TextView age = (TextView) findViewById(R.id.ageString);
+            TextView weight = (TextView) findViewById(R.id.weightString);
+            TextView goal = (TextView) findViewById(R.id.goalString);
+            TextView heightFt = (TextView) findViewById(R.id.heightFtString);
+            TextView heightIn = (TextView) findViewById(R.id.heightInString);
+            TextView bday = (TextView) findViewById(R.id.bdayString);
+            TextView workouts = (TextView) findViewById(R.id.workoutsString);
+
+            name.setText(profileInfo.getName());        // TODO - Proper data / need profile creation
+            age.setText(profileInfo.getAge());
+            weight.setText(profileInfo.getName());
+            goal.setText(profileInfo.getName());
+            heightFt.setText(profileInfo.getName());
+            heightIn.setText(profileInfo.getName());
+            bday.setText(profileInfo.getName());
+            workouts.setText(profileInfo.getName());
+
+
         }
 
 
