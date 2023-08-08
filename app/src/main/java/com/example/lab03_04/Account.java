@@ -1,7 +1,7 @@
 package com.example.lab03_04;
 
 import android.content.res.AssetManager;
-//test push
+
 public class Account {
 
     private int id;
