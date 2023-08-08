@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Lab03-04</string>
+    <string name="username">Username:</string>
+    <string name="password">Password:</string>
+    <string name="login">Login</string>
+    <string name="profName">Name:</string>
+    <string name="profNameString">cool.dude47@cooldudes.com</string>
+    <string name="buttonReturn">Log Out</string>
+    <string name="zipCode">Zip Code:</string>
+    <string name="zipCodeVal">98765</string>
+    <string name="phoneNumLabel">Phone Number:</string>
+    <string name="phoneNumVal">982-129-1283</string>
+    <string name="profTitle">PROFILE</string>
+    <string name="createbutton">Create Account</string>
+    <string name="Email">"Email: "</string>
+    <string name="nameLabel">Name:</string>
+    <string name="register">REGISTER</string>
+    <string name="accregister">Account Registration</string>
+    <string name="Label">Please fill out the following:</string>
+    <string name="Username">Username:</string>
+    <string name="Password">Password:</string>
+    <string name="Emaillabel">Email:</string>
+    <string name="registernameLabel">Name:</string>
+    <string name="namelabel">Name:</string>
+    <string name="emaillabel">Email:</string>
+</resources>
