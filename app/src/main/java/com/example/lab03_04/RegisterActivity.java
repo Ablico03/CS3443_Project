@@ -21,7 +21,7 @@ public class RegisterActivity extends ComponentActivity {
     }
 
     private void setupButtons(){
-        Button submit = (Button) findViewById(R.id.register);
+        Button submit = (Button) findViewById(R.id.button);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,8 +69,10 @@ public class RegisterActivity extends ComponentActivity {
     }
 
     private boolean validateAccountInfo(){
+        EditText unameInput = (EditText) findViewById(R.id.register_unameinput);
+        EditText passInput = (EditText) findViewById(R.id.register_passinput);
         EditText nameInput = (EditText) findViewById(R.id.register_nameinput);
-        EditText weightInput = (EditText)findViewById(R.id.register_weightinput);
+        EditText weightInput = (EditText) findViewById(R.id.register_weightinput);
         EditText goalInput = (EditText) findViewById(R.id.register_goalinput);
         EditText birthdayInput = (EditText) findViewById(R.id.register_birthdayinput);
         EditText heightfeetInput = (EditText) findViewById(R.id.register_heightfeetinput);

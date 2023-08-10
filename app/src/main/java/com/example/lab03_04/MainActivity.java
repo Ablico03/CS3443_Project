@@ -80,7 +80,6 @@ public class MainActivity extends ComponentActivity {
                         id = Integer.parseInt(arr[0]);
                         break;
                     }
-
                 }
                 scan.close();
             }
@@ -88,7 +87,6 @@ public class MainActivity extends ComponentActivity {
         catch(IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
-
         return id;
     }
 }

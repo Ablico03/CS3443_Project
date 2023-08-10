@@ -20,6 +20,7 @@ public class ProfileActivity extends ComponentActivity {
     private AssetManager assets;
     Button button;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

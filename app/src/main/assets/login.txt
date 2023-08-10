@@ -1,3 +1,0 @@
-1,test,test
-2,beoku,beokupass
-3,right,left
