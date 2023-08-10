@@ -1,6 +1,8 @@
 package com.example.lab03_04;
 
 import android.content.res.AssetManager;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class Account {
 
@@ -14,10 +16,10 @@ public class Account {
     private String bday;
     private int workoutsCompleted;
 
-    public Account(int id, String name, int age, int weight, int goal, int heightFt, int heightIn, String bday) {
+    public Account(int id, String name, int weight, int goal, String bday, int heightFt, int heightIn) {
         this.id = id;
         this.name = name;
-        this.age = age;
+        this.age = -1;
         this.weight = weight;
         this.goal = goal;
         this.heightFt = heightFt;
@@ -43,7 +45,20 @@ public class Account {
     }
 
     public int getAge() {
-        return age;
+
+
+        String[] parts = getBday().split("/");
+
+        int month = Integer.parseInt(parts[0]);
+        int day = Integer.parseInt(parts[1]);
+        int year = Integer.parseInt(parts[2]);
+
+        LocalDate birthdate = LocalDate.of(year, month, day);
+        LocalDate currentDate = LocalDate.now();
+
+        Period age = Period.between(birthdate, currentDate);
+
+        return age.getYears();
     }
 
     public void setAge(int age) {

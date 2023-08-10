@@ -158,8 +158,7 @@ public class RegisterActivity extends ComponentActivity {
         if(!f.exists()){
             try {
                 w = new OutputStreamWriter(openFileOutput("accounts.txt",MODE_PRIVATE));
-                w.write(id + "," + Name + "," + weight + "," + goal + "," + birthday
-                        + "," + heightfeet + "," + heightin);
+                w.write(id + "," + Name + "," + weight + "," + goal + "," + birthday + "," + heightfeet + "," + heightin);
                 w.close();
             }
             catch(IOException e){

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.ComponentActivity;
 
@@ -43,9 +44,12 @@ public class ProfileActivity extends ComponentActivity {
         });
     }
 
+
+
     public void setUpProfile() {
         Intent intent = getIntent();
         int id = intent.getIntExtra("id",-1);
+
         File f = new File(getFilesDir().getAbsolutePath() + "/accounts.txt");
         Scanner s;
         String str = "";
@@ -58,8 +62,8 @@ public class ProfileActivity extends ComponentActivity {
                     str = s.nextLine();
                     arr = str.split(",");
                     if (Integer.parseInt(arr[0]) == id) {
-                        /* Profile format id, name, age, weight, goal, heightFt, heightIn, workouts, bday*/
-                        profileInfo = new Account(id, arr[1], Integer.parseInt(arr[2]), Integer.parseInt(arr[3]), Integer.parseInt(arr[4]), Integer.parseInt(arr[5]), Integer.parseInt(arr[6]), arr[7]);
+                        /* Profile format id, name, weight, goal, bday, heightFt, heightIn, */
+                        profileInfo = new Account(id, arr[1], Integer.parseInt(arr[2]), Integer.parseInt(arr[3]), arr[4], Integer.parseInt(arr[5]), Integer.parseInt(arr[6]));
                         break;
                     }
                 }
@@ -81,13 +85,13 @@ public class ProfileActivity extends ComponentActivity {
             TextView workouts = (TextView) findViewById(R.id.workoutsString);
 
             name.setText(profileInfo.getName());        // TODO - Proper data / need profile creation
-            age.setText(profileInfo.getAge());
-            weight.setText(profileInfo.getName());
-            goal.setText(profileInfo.getName());
-            heightFt.setText(profileInfo.getName());
-            heightIn.setText(profileInfo.getName());
-            bday.setText(profileInfo.getName());
-            workouts.setText(profileInfo.getName());
+            age.setText(String.valueOf(profileInfo.getAge()));
+            weight.setText(String.valueOf(profileInfo.getWeight()));
+            goal.setText(String.valueOf(profileInfo.getGoal()));
+            heightFt.setText(String.valueOf(profileInfo.getHeightFt()));
+            heightIn.setText(String.valueOf(profileInfo.getHeightIn()));
+            bday.setText(String.valueOf(profileInfo.getBday()));
+            workouts.setText(String.valueOf(profileInfo.getWorkoutsCompleted()));
 
 
         }
