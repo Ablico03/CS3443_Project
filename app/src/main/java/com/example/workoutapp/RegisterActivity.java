@@ -76,10 +76,6 @@ public class RegisterActivity extends ComponentActivity {
         EditText heightfeetInput = (EditText) findViewById(R.id.register_heightfeetinput);
         EditText heightinInput = (EditText) findViewById(R.id.register_heightininput);
 
-        //EditText unameInput = (EditText) findViewById(R.id.inputName);
-        //EditText passInput = (EditText) findViewById(R.id.inputPassword);
-
-
 
         return(!nameInput.getText().toString().equals("") && !weightInput.getText().toString().equals("") &&
                 !goalInput.getText().toString().equals("") && !birthdayInput.getText().toString().equals("") && !heightfeetInput.getText().toString().equals("") &&

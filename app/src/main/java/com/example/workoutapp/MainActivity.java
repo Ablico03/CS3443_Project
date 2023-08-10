@@ -25,8 +25,6 @@ public class MainActivity extends ComponentActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        //assets = getAssets();
-        //Toast.makeText(this,"Hello World",Toast.LENGTH_SHORT).show();
         setupButton();
     }
 
