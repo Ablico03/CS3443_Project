@@ -58,10 +58,12 @@
 
     <Button
         android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="124dp"
+        android:layout_height="58dp"
         android:layout_marginBottom="76dp"
+        android:backgroundTint="#663BB1"
         android:text="@string/login"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/register"
         app:layout_constraintStart_toStartOf="parent" />
@@ -79,10 +81,12 @@
 
     <Button
         android:id="@+id/register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="124dp"
+        android:layout_height="58dp"
         android:layout_marginBottom="76dp"
+        android:backgroundTint="#663BB1"
         android:text="@string/register"
+        android:textColor="#FFF9F9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"

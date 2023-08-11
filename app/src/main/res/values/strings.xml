@@ -51,6 +51,7 @@
     <string name="height">Height (Ft.)</string>
     <string name="Height">Height (In.)</string>
     <string name="register">REGISTER</string>
+    <string name="profileTitle">Profile</string>
 
 
 </resources>
