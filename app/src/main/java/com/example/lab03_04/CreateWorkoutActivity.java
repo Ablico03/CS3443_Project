@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.ComponentActivity;
@@ -16,15 +17,30 @@ import java.util.Scanner;
 public class CreateWorkoutActivity extends ComponentActivity{
     private Account profileInfo;
     private AssetManager assets;
+    public int id;
         public void onCreate(Bundle savedInstanceState){
+
             super.onCreate(savedInstanceState);
             setContentView(R.layout.createworkout);
             setupButtons();
+            Intent intent = getIntent();
+            id = intent.getIntExtra("id",-1);
         }
 
         private void setupButtons(){
-            Button button1 = (Button) findViewById(R.id.workoutCreate);
-            button1.setOnClickListener(new View.OnClickListener(){
+
+            Button buttonCreate = (Button) findViewById(R.id.workoutCreate);
+
+            //ImageButton workoutsButton;
+            ImageButton profileButton;
+            ImageButton historyButton;
+
+            // Nav Bar Buttons
+            profileButton = (ImageButton) findViewById(R.id.navProfileWorkout);
+            historyButton = (ImageButton) findViewById(R.id.navHistoryWorkout);
+            //workoutsButton = (ImageButton) findViewById(R.id.navWorkoutProfile);
+
+            buttonCreate.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     int id = -1;
@@ -53,7 +69,26 @@ public class CreateWorkoutActivity extends ComponentActivity{
                         wRInput.setError("All fields must be filled out");
                     }
                 }
+            });
 
+
+            // Moves to history page - TODO set intent to History class once implemented
+            historyButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    /*Intent intent = new Intent(ProfileActivity.this, history.class);
+                    intent.putExtra("id",id);
+                    startActivity(intent); */
+                    Toast.makeText(getBaseContext(), "HISTORY NEEDS TO BE IMPLEMENTED", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            // Move to profile activity
+            profileButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(CreateWorkoutActivity.this, ProfileActivity.class);
+                    intent.putExtra("id",id);
+                    startActivity(intent);
+                }
             });
         }
 

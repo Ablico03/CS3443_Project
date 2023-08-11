@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +20,11 @@ public class ProfileActivity extends ComponentActivity {
 
     public Account profileInfo;
     private AssetManager assets;
-    Button button;
+    Button logOutButton;
+    ImageButton workoutsButton;
+    ImageButton historyButton;
+
+    public int id;
 
 
     @Override
@@ -30,25 +35,50 @@ public class ProfileActivity extends ComponentActivity {
         assets = getAssets();
         setUpProfile();
         setUpButtons();
-
     }
 
     private void setUpButtons() {
-        button = (Button) findViewById(R.id.buttonReturn);
+        logOutButton = (Button) findViewById(R.id.buttonLogout);
+        workoutsButton = (ImageButton) findViewById(R.id.navWorkoutProfile);
+        historyButton = (ImageButton) findViewById(R.id.navHistoryProfile);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        // Logout Button - Moves to login activity
+        logOutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+
+
+        // Move to Create Workout activity
+        workoutsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, CreateWorkoutActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
+        });
+
+
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+               /* Intent intent = new Intent(ProfileActivity.this, History.class);
+                intent.putExtra("id",id);
+                startActivity(intent); */
+                Toast.makeText(getBaseContext(), "HISTORY NEEDS TO BE IMPLEMENTED", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
     }
 
 
 
     public void setUpProfile() {
         Intent intent = getIntent();
-        int id = intent.getIntExtra("id",-1);
+        id = intent.getIntExtra("id",-1);
 
         File f = new File(getFilesDir().getAbsolutePath() + "/accounts.txt");
         Scanner s;
