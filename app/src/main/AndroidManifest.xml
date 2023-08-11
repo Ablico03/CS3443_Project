@@ -36,6 +36,12 @@
             android:label="register_activity"
             android:theme="@style/Theme.Lab0304">
         </activity>
+        <activity
+            android:name=".CreateWorkoutActivity"
+            android:exported="false"
+            android:label="createworkout_activity"
+            android:theme="@style/Theme.Lab0304">
+        </activity>
     </application>
 
 </manifest>

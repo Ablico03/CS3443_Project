@@ -17,7 +17,7 @@ import java.util.Scanner;
 
 public class ProfileActivity extends ComponentActivity {
 
-    private Account profileInfo;
+    public Account profileInfo;
     private AssetManager assets;
     Button button;
 
