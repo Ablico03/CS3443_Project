@@ -52,6 +52,8 @@
     <string name="Height">Height (In.)</string>
     <string name="register">REGISTER</string>
     <string name="profileTitle">Profile</string>
+    <string name="nav_to_profile">Profile</string>
+    <string name="nav_to_create_workout">Add Workout</string>
 
 
 </resources>
