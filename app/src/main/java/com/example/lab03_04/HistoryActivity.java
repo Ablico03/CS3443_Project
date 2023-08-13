@@ -13,6 +13,7 @@ import androidx.activity.ComponentActivity;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HistoryActivity extends ComponentActivity {
@@ -23,7 +24,7 @@ public class HistoryActivity extends ComponentActivity {
     String name = "";
     String fileName = "";
     String[] arr = null;
-    String[][] arr1 = null;
+    ArrayList<String[]> arr1 = new ArrayList<String[]>();
     String f = "";
 
 
@@ -33,20 +34,22 @@ public class HistoryActivity extends ComponentActivity {
         setContentView(R.layout.history);
         Intent intent = getIntent();
         id = intent.getIntExtra("id",-1);
+
         try{
             name = getUserName(id);
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
-        fileName = "/" + name + "workout.txt";
+        fileName = "/" + name + "-workouts.txt";
         f = getFilesDir().getAbsolutePath() + fileName;
         int numWorkouts = 0;
-        //numWorkouts = getHistory(f, numWorkouts);
-        setupButtons();
+        numWorkouts = getHistory(f, numWorkouts);
+        setupButtons(numWorkouts);
     }
 
-    private void setupButtons() {
+    private void setupButtons(int i) {
         ImageButton profileButton;
         ImageButton workoutsButton;
         Button prev;
@@ -56,6 +59,11 @@ public class HistoryActivity extends ComponentActivity {
         TextView Weight = (TextView) findViewById(R.id.histWeightDisplay);
         TextView Sets = (TextView) findViewById(R.id.histSetsDisplay);
         TextView Reps = (TextView) findViewById(R.id.histRepsDisplay);
+        /*Name.setText(arr1[0][1]);
+        Type.setText(arr1[0][2]);
+        Weight.setText(arr1[0][3]);
+        Sets.setText(arr1[0][4]);
+        Reps.setText(arr1[0][5]);*/
 
         profileButton = (ImageButton) findViewById(R.id.navProfileHistory);
         workoutsButton = (ImageButton) findViewById(R.id.navWorkoutHistory);
@@ -74,12 +82,12 @@ public class HistoryActivity extends ComponentActivity {
 
         prev.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                /*if (arr1[numWorkouts-1][0] != null) {//if previous array index contains values, set hist textViews to those values
-                    Name.setText(arr1[numWorkouts-1][1]);
-                    Type.setText(arr1[numWorkouts-1][2]);
-                    Weight.setText(arr1[numWorkouts-1][3]);
-                    Sets.setText(arr1[numWorkouts-1][4]);
-                    Reps.setText(arr1[numWorkouts-1][5]);
+                /*if (arr1[i-1][0] != null) {//if previous array index contains values, set hist textViews to those values
+                    Name.setText(arr1[i-1][1]);
+                    Type.setText(arr1[i-1][2]);
+                    Weight.setText(arr1[i-1][3]);
+                    Sets.setText(arr1[i-1][4]);
+                    Reps.setText(arr1[i-1][5]);
                 }*/
                 Name.setText("orp");
                 Type.setText("morp");
@@ -91,12 +99,12 @@ public class HistoryActivity extends ComponentActivity {
 
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                /*if (arr1[numWorkouts+1][0] != null) {//if previous array index contains values, set hist textViews to those values
-                    Name.setText(arr1[numWorkouts+1][1]);
-                    Type.setText(arr1[numWorkouts+1][2]);
-                    Weight.setText(arr1[numWorkouts+1][3]);
-                    Sets.setText(arr1[numWorkouts+1][4]);
-                    Reps.setText(arr1[numWorkouts+1][5]);
+                /*if (arr1[i+1][0] != null) {//if previous array index contains values, set hist textViews to those values
+                    Name.setText(arr1[i+1][1]);
+                    Type.setText(arr1[i+1][2]);
+                    Weight.setText(arr1[i+1][3]);
+                    Sets.setText(arr1[i+1][4]);
+                    Reps.setText(arr1[i+1][5]);
                 }*/
                 Name.setText("borp");
                 Type.setText("dorp");
@@ -121,9 +129,12 @@ public class HistoryActivity extends ComponentActivity {
         String name = "";
         String str = "";
         String[] arr = null;
+
         try {
+
             if(f.exists()) {
                 s = new Scanner(f);
+
                 while (s.hasNext()) {
                     str = s.nextLine();
                     arr = str.split(",");
@@ -131,9 +142,11 @@ public class HistoryActivity extends ComponentActivity {
                         return arr[1];
                     }
                 }
+
                 s.close();
             }
         }
+
         catch (Exception e) {
             Toast.makeText(getBaseContext(), "Exception while getting name", Toast.LENGTH_SHORT).show();
         }
@@ -147,31 +160,40 @@ public class HistoryActivity extends ComponentActivity {
         TextView Weight = (TextView) findViewById(R.id.histWeightDisplay);
         TextView Sets = (TextView) findViewById(R.id.histSetsDisplay);
         TextView Reps = (TextView) findViewById(R.id.histRepsDisplay);
+
+        File file = new File(f);
+        Scanner s;
+        String name = "";
+        String str = "";
+        String[] arr = new String[6];
+
         try {
+            if(file.exists()) {
+                s = new Scanner(file);
+                i = -1;
 
-            s = new Scanner(openFileInput(f));
-            i = 0;
-
-            while (s.hasNext()) {
-                str = s.nextLine();
-                arr = str.split(",");
-
-                for(int j = 0; j < 6; j++){
-                    arr1[i][j] = arr[j];
+                while (s.hasNext()) {
+                    i+=1;
+                    str = s.nextLine();
+                    arr = str.split(",");
+                    arr1.add(arr);
                 }
-                i++;
+
+                //Toast.makeText(getBaseContext(), "all file contents copied", Toast.LENGTH_SHORT).show();
+                Name.setText(arr1.get(i)[1]);
+                Type.setText(arr1.get(i)[2]);
+                Weight.setText(arr1.get(i)[3]);
+                Sets.setText(arr1.get(i)[4]);
+                Reps.setText(arr1.get(i)[5]);
+                //Toast.makeText(getBaseContext(),arr1.get(i)[5], Toast.LENGTH_SHORT).show();
+                s.close();
             }
-            Name.setText(arr1[i][1]);
-            Type.setText(arr1[i][2]);
-            Weight.setText(arr1[i][3]);
-            Sets.setText(arr1[i][4]);
-            Reps.setText(arr1[i][5]);
-            Toast.makeText(getBaseContext(), "index: " + i, Toast.LENGTH_SHORT).show();
-            s.close();
         }
+
         catch (Exception e) {
-            Toast.makeText(getBaseContext(), "Exception while getting history" + i, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Exception while getting history", Toast.LENGTH_SHORT).show();
         }
+
         return i;
     }
 }
