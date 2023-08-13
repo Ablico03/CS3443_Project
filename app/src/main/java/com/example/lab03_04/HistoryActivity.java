@@ -12,7 +12,7 @@ import androidx.activity.ComponentActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HistoryActivity extends ComponentActivity {
@@ -23,8 +23,10 @@ public class HistoryActivity extends ComponentActivity {
     String name = "";
     String fileName = "";
     String[] arr = null;
-    String[][] arr1 = null;
+    ArrayList<String[]> arr1 = new ArrayList<String[]>();
     String f = "";
+    public static int position = -1;
+    public static int totalWorkouts = 0;
 
 
     public void onCreate(Bundle savedInstanceState){
@@ -33,16 +35,18 @@ public class HistoryActivity extends ComponentActivity {
         setContentView(R.layout.history);
         Intent intent = getIntent();
         id = intent.getIntExtra("id",-1);
+
         try{
             name = getUserName(id);
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
-        fileName = "/" + name + "workout.txt";
+        fileName = "/" + name + "-workouts.txt";
         f = getFilesDir().getAbsolutePath() + fileName;
         int numWorkouts = 0;
-        //numWorkouts = getHistory(f, numWorkouts);
+        getHistory(f);
         setupButtons();
     }
 
@@ -74,35 +78,33 @@ public class HistoryActivity extends ComponentActivity {
 
         prev.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                /*if (arr1[numWorkouts-1][0] != null) {//if previous array index contains values, set hist textViews to those values
-                    Name.setText(arr1[numWorkouts-1][1]);
-                    Type.setText(arr1[numWorkouts-1][2]);
-                    Weight.setText(arr1[numWorkouts-1][3]);
-                    Sets.setText(arr1[numWorkouts-1][4]);
-                    Reps.setText(arr1[numWorkouts-1][5]);
-                }*/
-                Name.setText("orp");
-                Type.setText("morp");
-                Weight.setText("klorpengorp");
-                Sets.setText("mek");
-                Reps.setText("sek");
+                if (position > 0) {//if previous array index contains values, set hist textViews to those values
+                    Name.setText(arr1.get(position -1)[1]);
+                    Type.setText(arr1.get(position -1)[2]);
+                    Weight.setText(arr1.get(position -1)[3]);
+                    Sets.setText(arr1.get(position -1)[4]);
+                    Reps.setText(arr1.get(position -1)[5]);
+                    position--;
+                }
+                else{
+                    Toast.makeText(getBaseContext(), "Oldest workout already reached", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                /*if (arr1[numWorkouts+1][0] != null) {//if previous array index contains values, set hist textViews to those values
-                    Name.setText(arr1[numWorkouts+1][1]);
-                    Type.setText(arr1[numWorkouts+1][2]);
-                    Weight.setText(arr1[numWorkouts+1][3]);
-                    Sets.setText(arr1[numWorkouts+1][4]);
-                    Reps.setText(arr1[numWorkouts+1][5]);
-                }*/
-                Name.setText("borp");
-                Type.setText("dorp");
-                Weight.setText("forpenorp");
-                Sets.setText("gork");
-                Reps.setText("mork");
+                if (position < totalWorkouts-1) {//if previous array index contains values, set hist textViews to those values
+                    Name.setText(arr1.get(position +1)[1]);
+                    Type.setText(arr1.get(position +1)[2]);
+                    Weight.setText(arr1.get(position +1)[3]);
+                    Sets.setText(arr1.get(position +1)[4]);
+                    Reps.setText(arr1.get(position +1)[5]);
+                    position++;
+                }
+                else{
+                    Toast.makeText(getBaseContext(), "Newest workout already reached", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -121,9 +123,12 @@ public class HistoryActivity extends ComponentActivity {
         String name = "";
         String str = "";
         String[] arr = null;
+
         try {
+
             if(f.exists()) {
                 s = new Scanner(f);
+
                 while (s.hasNext()) {
                     str = s.nextLine();
                     arr = str.split(",");
@@ -131,9 +136,11 @@ public class HistoryActivity extends ComponentActivity {
                         return arr[1];
                     }
                 }
+
                 s.close();
             }
         }
+
         catch (Exception e) {
             Toast.makeText(getBaseContext(), "Exception while getting name", Toast.LENGTH_SHORT).show();
         }
@@ -141,37 +148,44 @@ public class HistoryActivity extends ComponentActivity {
         return "noName";
     }
 
-    private int getHistory(String f, int i){
+    private void getHistory(String f){
         TextView Name = (TextView) findViewById(R.id.histNameDisplay);
         TextView Type = (TextView) findViewById(R.id.histTypeDisplay);
         TextView Weight = (TextView) findViewById(R.id.histWeightDisplay);
         TextView Sets = (TextView) findViewById(R.id.histSetsDisplay);
         TextView Reps = (TextView) findViewById(R.id.histRepsDisplay);
+
+        File file = new File(f);
+        Scanner s;
+        String name = "";
+        String str = "";
+        String[] arr = new String[6];
+
         try {
+            if(file.exists()) {
+                s = new Scanner(file);
 
-            s = new Scanner(openFileInput(f));
-            i = 0;
-
-            while (s.hasNext()) {
-                str = s.nextLine();
-                arr = str.split(",");
-
-                for(int j = 0; j < 6; j++){
-                    arr1[i][j] = arr[j];
+                while (s.hasNext()) {
+                    position +=1;
+                    str = s.nextLine();
+                    arr = str.split(",");
+                    arr1.add(arr);
                 }
-                i++;
+
+                //Toast.makeText(getBaseContext(), "all file contents copied", Toast.LENGTH_SHORT).show();
+                Name.setText(arr1.get(position)[1]);
+                Type.setText(arr1.get(position)[2]);
+                Weight.setText(arr1.get(position)[3]);
+                Sets.setText(arr1.get(position)[4]);
+                Reps.setText(arr1.get(position)[5]);
+                Toast.makeText(getBaseContext(),"index: " + position, Toast.LENGTH_SHORT).show();
+                totalWorkouts = position + 1;
+                s.close();
             }
-            Name.setText(arr1[i][1]);
-            Type.setText(arr1[i][2]);
-            Weight.setText(arr1[i][3]);
-            Sets.setText(arr1[i][4]);
-            Reps.setText(arr1[i][5]);
-            Toast.makeText(getBaseContext(), "index: " + i, Toast.LENGTH_SHORT).show();
-            s.close();
         }
+
         catch (Exception e) {
-            Toast.makeText(getBaseContext(), "Exception while getting history" + i, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Exception while getting history", Toast.LENGTH_SHORT).show();
         }
-        return i;
     }
 }
