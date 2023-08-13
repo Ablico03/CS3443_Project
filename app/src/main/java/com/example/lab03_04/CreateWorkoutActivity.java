@@ -126,15 +126,14 @@ public class CreateWorkoutActivity extends ComponentActivity{
             String workoutSets = wSInput.getText().toString();
             String workoutReps = wRInput.getText().toString();
 
+            String tName = profileInfo.getName() + "workouts.txt";
 
-            String fName = workoutName + "workout.txt";
 
-
-            File f = new File(getFilesDir().getAbsolutePath() + "/" + fName);
+            File f = new File(getFilesDir().getAbsolutePath() + "/" + tName);
             OutputStreamWriter w = null;
             if(!f.exists()){
                 try {
-                    w = new OutputStreamWriter(openFileOutput(fName, MODE_PRIVATE));
+                    w = new OutputStreamWriter(openFileOutput(tName, MODE_PRIVATE));
                     w.write(name + "," + workoutName + "," + workoutType + "," + workoutWeight + "," + workoutSets + "," + workoutReps);
                     w.close();
                 }
@@ -144,7 +143,7 @@ public class CreateWorkoutActivity extends ComponentActivity{
             }
             else{
                 try {
-                    w = new OutputStreamWriter(openFileOutput(fName, MODE_APPEND));
+                    w = new OutputStreamWriter(openFileOutput(tName, MODE_APPEND));
                     w.append("\n" + name +","+workoutName+","+workoutType+","+workoutWeight+","+workoutSets+","+workoutReps);
                     w.close();
                 }
