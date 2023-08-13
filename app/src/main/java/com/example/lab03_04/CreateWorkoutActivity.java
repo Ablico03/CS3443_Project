@@ -23,6 +23,7 @@ public class CreateWorkoutActivity extends ComponentActivity{
             super.onCreate(savedInstanceState);
             setContentView(R.layout.createworkout);
             setupButtons();
+
             Intent intent = getIntent();
             id = intent.getIntExtra("id",-1);
         }
@@ -43,17 +44,22 @@ public class CreateWorkoutActivity extends ComponentActivity{
             buttonCreate.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    int id = -1;
+                    //int id = -1;
+
                     EditText wNInput = (EditText) findViewById(R.id.workoutName);
                     EditText wTInput = (EditText) findViewById(R.id.workoutType);
                     EditText wWInput = (EditText) findViewById(R.id.workoutWeight);
-                    EditText wSInput = (EditText) findViewById(R.id.workoutSets);
+                    EditText wSInput = (EditText) findViewById(R.id.editTextText2);
                     EditText wRInput = (EditText) findViewById(R.id.workoutReps);
+
+
+
 
                     if(validateAccountInfo()){
                         //profile info to retrieve name for newfile
-                        String name = profileInfo.getName();
-                        createWorkout(name);
+                        //String name = profileInfo.getName();
+                        createWorkout(Integer.toString(id));
+                        Toast.makeText(getBaseContext(), "hey", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     else{
@@ -93,10 +99,11 @@ public class CreateWorkoutActivity extends ComponentActivity{
         }
 
     private boolean validateAccountInfo(){
+
         EditText wNInput = (EditText) findViewById(R.id.workoutName);
         EditText wTInput = (EditText) findViewById(R.id.workoutType);
         EditText wWInput = (EditText) findViewById(R.id.workoutWeight);
-        EditText wSInput = (EditText) findViewById(R.id.workoutSets);
+        EditText wSInput = (EditText) findViewById(R.id.editTextText2);
         EditText wRInput = (EditText) findViewById(R.id.workoutReps);
             if(!wNInput.getText().toString().equals("") && !wTInput.getText().toString().equals("") &&
                     !wWInput.getText().toString().equals("") && !wSInput.getText().toString().equals("")
@@ -106,10 +113,12 @@ public class CreateWorkoutActivity extends ComponentActivity{
             return false;
         }
         private void createWorkout(String name){
+
+
             EditText wNInput = (EditText) findViewById(R.id.workoutName);
             EditText wTInput = (EditText) findViewById(R.id.workoutType);
             EditText wWInput = (EditText) findViewById(R.id.workoutWeight);
-            EditText wSInput = (EditText) findViewById(R.id.workoutSets);
+            EditText wSInput = (EditText) findViewById(R.id.editTextText2);
             EditText wRInput = (EditText) findViewById(R.id.workoutReps);
             String workoutName = wNInput.getText().toString();
             String workoutType = wTInput.getText().toString();
@@ -117,14 +126,14 @@ public class CreateWorkoutActivity extends ComponentActivity{
             String workoutSets = wSInput.getText().toString();
             String workoutReps = wRInput.getText().toString();
 
-            String nameF = name + "workouts.txt";
-            String nameDir = "/"+nameF;
 
-            File f = new File(getFilesDir().getAbsolutePath() + "/temp.txt");
+
+
+            File f = new File(getFilesDir().getAbsolutePath() + "/workouts.txt");
             OutputStreamWriter w = null;
             if(!f.exists()){
                 try {
-                    w = new OutputStreamWriter(openFileOutput("temp.txt", MODE_PRIVATE));
+                    w = new OutputStreamWriter(openFileOutput("workouts.txt", MODE_PRIVATE));
                     w.write(name + "," + workoutName + "," + workoutType + "," + workoutWeight + "," + workoutSets + "," + workoutReps);
                     w.close();
                 }
@@ -134,8 +143,8 @@ public class CreateWorkoutActivity extends ComponentActivity{
             }
             else{
                 try {
-                    w = new OutputStreamWriter(openFileOutput("temp.txt", MODE_APPEND));
-                    w.append("\n" +  name +","+workoutName+","+workoutType+","+workoutWeight+","+workoutSets+","+workoutReps);
+                    w = new OutputStreamWriter(openFileOutput("workouts.txt", MODE_APPEND));
+                    w.append("\n" + name +","+workoutName+","+workoutType+","+workoutWeight+","+workoutSets+","+workoutReps);
                     w.close();
                 }
                 catch(IOException e){
