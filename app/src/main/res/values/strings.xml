@@ -56,6 +56,15 @@
     <string name="nav_to_create_workout">Add Workout</string>
     <string name="historyTitle">History</string>
     <string name="historyReturnButton">Profile</string>
+    <string name="prevEntry">Previous</string>
+    <string name="nextEntry">Next</string>
+    <string name="histName">Workout:</string>
+    <string name="histNameDisplay" />
+    <string name="histType">Type:</string>
+    <string name="histTypeDisplay" />
+    <string name="histWeight">Weight:</string>
+    <string name="histSets">Sets:</string>
+    <string name="histReps">Reps:</string>
 
 
 </resources>
