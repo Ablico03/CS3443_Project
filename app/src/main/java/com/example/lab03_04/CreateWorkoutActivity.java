@@ -78,7 +78,6 @@ public class CreateWorkoutActivity extends ComponentActivity{
                     Intent intent = new Intent(CreateWorkoutActivity.this, HistoryActivity.class);
                     intent.putExtra("id",id);
                     startActivity(intent);
-                    //Toast.makeText(getBaseContext(), "HISTORY NEEDS TO BE IMPLEMENTED", Toast.LENGTH_LONG).show();
                 }
             });
 

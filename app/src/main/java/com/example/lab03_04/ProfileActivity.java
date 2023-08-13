@@ -64,9 +64,8 @@ public class ProfileActivity extends ComponentActivity {
         historyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                Intent intent = new Intent(ProfileActivity.this, HistoryActivity.class);
-                intent.putExtra("id",id);
-                startActivity(intent);
-                //Toast.makeText(getBaseContext(), "HISTORY NEEDS TO BE IMPLEMENTED", Toast.LENGTH_LONG).show();
+               intent.putExtra("id",id);
+               startActivity(intent);
             }
         });
 
