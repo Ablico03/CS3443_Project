@@ -46,7 +46,6 @@ public class Account {
 
     public int getAge() {
 
-
         String[] parts = getBday().split("/");
 
         int month = Integer.parseInt(parts[0]);

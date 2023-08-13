@@ -9,9 +9,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.ComponentActivity;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CreateWorkoutActivity extends ComponentActivity{
@@ -59,7 +66,6 @@ public class CreateWorkoutActivity extends ComponentActivity{
                         //profile info to retrieve name for newfile
                         //String name = profileInfo.getName();
                         createWorkout(Integer.toString(id));
-                        Toast.makeText(getBaseContext(), "hey", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     else{
@@ -126,15 +132,16 @@ public class CreateWorkoutActivity extends ComponentActivity{
             String workoutSets = wSInput.getText().toString();
             String workoutReps = wRInput.getText().toString();
 
-            String tName = profileInfo.getName() + "workouts.txt";
+            String tName = getName(id) + "workouts.txt";
 
 
             File f = new File(getFilesDir().getAbsolutePath() + "/" + tName);
             OutputStreamWriter w = null;
             if(!f.exists()){
                 try {
+                    // Writes to new workouts file
                     w = new OutputStreamWriter(openFileOutput(tName, MODE_PRIVATE));
-                    w.write(profileInfo.getName() + "," + workoutName + "," + workoutType + "," + workoutWeight + "," + workoutSets + "," + workoutReps);
+                    w.write(getName(id) + "," + workoutName + "," + workoutType + "," + workoutWeight + "," + workoutSets + "," + workoutReps);
                     w.close();
                 }
                 catch(IOException e){
@@ -144,7 +151,7 @@ public class CreateWorkoutActivity extends ComponentActivity{
             else{
                 try {
                     w = new OutputStreamWriter(openFileOutput(tName, MODE_APPEND));
-                    w.append("\n" + profileInfo.getName() +","+workoutName+","+workoutType+","+workoutWeight+","+workoutSets+","+workoutReps);
+                    w.append("\n" + getName(id) +","+workoutName+","+workoutType+","+workoutWeight+","+workoutSets+","+workoutReps);
                     w.close();
                 }
                 catch(IOException e){
@@ -152,4 +159,36 @@ public class CreateWorkoutActivity extends ComponentActivity{
                 }
             }
         }
-    }
+
+
+        public String getName(int id) {
+
+            File f = new File(getFilesDir().getAbsolutePath() + "/accounts.txt");
+            Scanner s;
+            String str = "";
+            String[] arr = null;
+
+            try {
+                if(f.exists()) {
+                    s = new Scanner(openFileInput("accounts.txt"));
+                    while (s.hasNext()) {
+                        str = s.nextLine();
+                        arr = str.split(",");
+                        if (Integer.parseInt(arr[0]) == id) {
+                            /* Profile format id, name, weight, goal, bday, heightFt, heightIn, */
+                           return arr[1];
+                        }
+                    }
+                    s.close();
+                }
+            }
+            catch (IOException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            return "None";
+        }
+
+
+
+
+}

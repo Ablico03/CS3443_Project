@@ -158,7 +158,7 @@ public class RegisterActivity extends ComponentActivity {
         if(!f.exists()){
             try {
                 w = new OutputStreamWriter(openFileOutput("accounts.txt",MODE_PRIVATE));
-                w.write(id + "," + Name + "," + weight + "," + goal + "," + birthday + "," + heightfeet + "," + heightin);
+                w.write(id + "," + Name + "," + weight + "," + goal + "," + birthday + "," + heightfeet + "," + heightin + "," + 0);
                 w.close();
             }
             catch(IOException e){
@@ -170,8 +170,7 @@ public class RegisterActivity extends ComponentActivity {
         else{
             try {
                 w = new OutputStreamWriter(openFileOutput("accounts.txt", MODE_APPEND));
-                w.append("\n" + id + "," + Name + "," + weight + "," + goal + "," + birthday
-                        + "," + heightfeet + "," + heightin);
+                w.append("\n" + id + "," + Name + "," + weight + "," + goal + "," + birthday + "," + heightfeet + "," + heightin + 0);
                 w.close();
 
             }catch(IOException e){
