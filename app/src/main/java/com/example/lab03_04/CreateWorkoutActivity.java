@@ -75,10 +75,10 @@ public class CreateWorkoutActivity extends ComponentActivity{
             // Moves to history page - TODO set intent to History class once implemented
             historyButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    /*Intent intent = new Intent(ProfileActivity.this, history.class);
+                    Intent intent = new Intent(CreateWorkoutActivity.this, HistoryActivity.class);
                     intent.putExtra("id",id);
-                    startActivity(intent); */
-                    Toast.makeText(getBaseContext(), "HISTORY NEEDS TO BE IMPLEMENTED", Toast.LENGTH_LONG).show();
+                    startActivity(intent);
+                    //Toast.makeText(getBaseContext(), "HISTORY NEEDS TO BE IMPLEMENTED", Toast.LENGTH_LONG).show();
                 }
             });
 

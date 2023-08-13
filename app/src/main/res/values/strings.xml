@@ -54,6 +54,8 @@
     <string name="profileTitle">Profile</string>
     <string name="nav_to_profile">Profile</string>
     <string name="nav_to_create_workout">Add Workout</string>
+    <string name="historyTitle">History</string>
+    <string name="historyReturnButton">Profile</string>
 
 
 </resources>

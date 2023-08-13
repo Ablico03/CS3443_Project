@@ -42,6 +42,12 @@
             android:label="createworkout_activity"
             android:theme="@style/Theme.Lab0304">
         </activity>
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false"
+            android:label="history_activity"
+            android:theme="@style/Theme.Lab0304">
+        </activity>
     </application>
 
 </manifest>
