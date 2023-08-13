@@ -163,22 +163,18 @@ public class RegisterActivity extends ComponentActivity {
             }
             catch(IOException e){
                 Toast.makeText(getBaseContext(), "IOException: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-
             }
-
         }
         else{
             try {
                 w = new OutputStreamWriter(openFileOutput("accounts.txt", MODE_APPEND));
-                w.append("\n" + id + "," + Name + "," + weight + "," + goal + "," + birthday + "," + heightfeet + "," + heightin + 0);
+                w.append(id + "," + Name + "," + weight + "," + goal + "," + birthday + "," + heightfeet + "," + heightin + "," + 0);
                 w.close();
 
             }catch(IOException e){
                 Toast.makeText(getBaseContext(), "IOException: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
         }
-
     }
 }
 

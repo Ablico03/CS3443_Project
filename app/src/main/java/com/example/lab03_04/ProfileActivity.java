@@ -29,12 +29,12 @@ public class ProfileActivity extends ComponentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        profileInfo = null;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
-        profileInfo = null;
-        assets = getAssets();
         setUpProfile();
         setUpButtons();
+
     }
 
     private void setUpButtons() {
@@ -50,7 +50,6 @@ public class ProfileActivity extends ComponentActivity {
             }
         });
 
-
         // Move to Create Workout activity
         workoutsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -60,7 +59,6 @@ public class ProfileActivity extends ComponentActivity {
             }
         });
 
-
         historyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                Intent intent = new Intent(ProfileActivity.this, HistoryActivity.class);
@@ -68,12 +66,7 @@ public class ProfileActivity extends ComponentActivity {
                startActivity(intent);
             }
         });
-
-
-
     }
-
-
 
     public void setUpProfile() {
         Intent intent = getIntent();
@@ -93,6 +86,7 @@ public class ProfileActivity extends ComponentActivity {
                     if (Integer.parseInt(arr[0]) == id) {
                         /* Profile format id, name, weight, goal, bday, heightFt, heightIn, */
                         profileInfo = new Account(id, arr[1], Integer.parseInt(arr[2]), Integer.parseInt(arr[3]), arr[4], Integer.parseInt(arr[5]), Integer.parseInt(arr[6]));
+                        profileInfo.setWorkoutsCompleted(Integer.parseInt(arr[7]));
                         break;
                     }
                 }
@@ -121,10 +115,6 @@ public class ProfileActivity extends ComponentActivity {
             heightIn.setText(String.valueOf(profileInfo.getHeightIn()));
             bday.setText(String.valueOf(profileInfo.getBday()));
             workouts.setText(String.valueOf(profileInfo.getWorkoutsCompleted()));
-
-
         }
-
-
     }
 }

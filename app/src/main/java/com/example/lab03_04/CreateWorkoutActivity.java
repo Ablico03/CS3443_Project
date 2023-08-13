@@ -1,8 +1,10 @@
 package com.example.lab03_04;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -60,13 +62,14 @@ public class CreateWorkoutActivity extends ComponentActivity{
                     EditText wRInput = (EditText) findViewById(R.id.workoutReps);
 
 
-
-
                     if(validateAccountInfo()){
                         //profile info to retrieve name for newfile
                         //String name = profileInfo.getName();
                         createWorkout(Integer.toString(id));
-                        finish();
+                        Toast.makeText(getBaseContext(), "WORKOUT CREATED", Toast.LENGTH_LONG).show();
+                        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                        inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
+                        //finish();
                     }
                     else{
                         wNInput.setText("");
@@ -82,7 +85,6 @@ public class CreateWorkoutActivity extends ComponentActivity{
                     }
                 }
             });
-
 
             // Moves to history page - TODO set intent to History class once implemented
             historyButton.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +121,6 @@ public class CreateWorkoutActivity extends ComponentActivity{
         }
         private void createWorkout(String name){
 
-
             EditText wNInput = (EditText) findViewById(R.id.workoutName);
             EditText wTInput = (EditText) findViewById(R.id.workoutType);
             EditText wWInput = (EditText) findViewById(R.id.workoutWeight);
@@ -131,8 +132,7 @@ public class CreateWorkoutActivity extends ComponentActivity{
             String workoutSets = wSInput.getText().toString();
             String workoutReps = wRInput.getText().toString();
 
-            String tName = getName(id) + "workouts.txt";
-
+            String tName = getName(id) + "-workouts.txt";
 
             File f = new File(getFilesDir().getAbsolutePath() + "/" + tName);
             OutputStreamWriter w = null;
@@ -141,6 +141,7 @@ public class CreateWorkoutActivity extends ComponentActivity{
                     // Writes to new workouts file
                     w = new OutputStreamWriter(openFileOutput(tName, MODE_PRIVATE));
                     w.write(getName(id) + "," + workoutName + "," + workoutType + "," + workoutWeight + "," + workoutSets + "," + workoutReps);
+                    incrementWorkoutsCompleted();
                     w.close();
                 }
                 catch(IOException e){
@@ -151,6 +152,7 @@ public class CreateWorkoutActivity extends ComponentActivity{
                 try {
                     w = new OutputStreamWriter(openFileOutput(tName, MODE_APPEND));
                     w.append("\n" + getName(id) +","+workoutName+","+workoutType+","+workoutWeight+","+workoutSets+","+workoutReps);
+                    incrementWorkoutsCompleted();
                     w.close();
                 }
                 catch(IOException e){
@@ -187,7 +189,41 @@ public class CreateWorkoutActivity extends ComponentActivity{
             return "None";
         }
 
+        public void incrementWorkoutsCompleted() {
 
+            List<String> lines = new ArrayList<>();
 
+            try {
+                File file = new File(getFilesDir().getAbsolutePath() + "/accounts.txt");
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line;
 
-}
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(",");
+                    int tempId = Integer.parseInt(parts[0]);
+
+                    if (tempId == id) {
+                        int currentWorkouts = Integer.parseInt(parts[7]);
+                        int updatedWorkouts = currentWorkouts + 1;
+                        parts[7] = String.valueOf(updatedWorkouts);
+                        line = String.join(",", parts);
+                    }
+
+                    lines.add(line);
+                }
+
+                reader.close();
+
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                for (String updatedLine : lines) {
+                    writer.write(updatedLine);
+                    writer.newLine();
+                }
+                writer.close();
+
+                System.out.println("Workouts updated and line replaced successfully.");
+            } catch (IOException e) {
+                System.err.println("An error occurred: " + e.getMessage());
+            }
+        }
+        }
