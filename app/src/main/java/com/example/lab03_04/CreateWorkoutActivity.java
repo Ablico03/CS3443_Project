@@ -44,11 +44,11 @@ public class CreateWorkoutActivity extends ComponentActivity{
                 @Override
                 public void onClick(View v) {
                     int id = -1;
-                    TextView wNInput = (TextView) findViewById(R.id.workoutName);
-                    TextView wTInput = (TextView) findViewById(R.id.workoutType);
-                    TextView wWInput = (TextView) findViewById(R.id.workoutWeight);
-                    TextView wSInput = (TextView) findViewById(R.id.workoutSets);
-                    TextView wRInput = (TextView) findViewById(R.id.workoutReps);
+                    EditText wNInput = (EditText) findViewById(R.id.workoutName);
+                    EditText wTInput = (EditText) findViewById(R.id.workoutType);
+                    EditText wWInput = (EditText) findViewById(R.id.workoutWeight);
+                    EditText wSInput = (EditText) findViewById(R.id.workoutSets);
+                    EditText wRInput = (EditText) findViewById(R.id.workoutReps);
 
                     if(validateAccountInfo()){
                         //profile info to retrieve name for newfile
@@ -93,11 +93,11 @@ public class CreateWorkoutActivity extends ComponentActivity{
         }
 
     private boolean validateAccountInfo(){
-            TextView wNInput = (TextView) findViewById(R.id.workoutName);
-            TextView wTInput = (TextView) findViewById(R.id.workoutType);
-            TextView wWInput = (TextView) findViewById(R.id.workoutWeight);
-            TextView wSInput = (TextView) findViewById(R.id.workoutSets);
-            TextView wRInput = (TextView) findViewById(R.id.workoutReps);
+        EditText wNInput = (EditText) findViewById(R.id.workoutName);
+        EditText wTInput = (EditText) findViewById(R.id.workoutType);
+        EditText wWInput = (EditText) findViewById(R.id.workoutWeight);
+        EditText wSInput = (EditText) findViewById(R.id.workoutSets);
+        EditText wRInput = (EditText) findViewById(R.id.workoutReps);
             if(!wNInput.getText().toString().equals("") && !wTInput.getText().toString().equals("") &&
                     !wWInput.getText().toString().equals("") && !wSInput.getText().toString().equals("")
             && !wRInput.getText().toString().equals("")){
@@ -106,11 +106,11 @@ public class CreateWorkoutActivity extends ComponentActivity{
             return false;
         }
         private void createWorkout(String name){
-            TextView wNInput = (TextView) findViewById(R.id.workoutName);
-            TextView wTInput = (TextView) findViewById(R.id.workoutType);
-            TextView wWInput = (TextView) findViewById(R.id.workoutWeight);
-            TextView wSInput = (TextView) findViewById(R.id.workoutSets);
-            TextView wRInput = (TextView) findViewById(R.id.workoutReps);
+            EditText wNInput = (EditText) findViewById(R.id.workoutName);
+            EditText wTInput = (EditText) findViewById(R.id.workoutType);
+            EditText wWInput = (EditText) findViewById(R.id.workoutWeight);
+            EditText wSInput = (EditText) findViewById(R.id.workoutSets);
+            EditText wRInput = (EditText) findViewById(R.id.workoutReps);
             String workoutName = wNInput.getText().toString();
             String workoutType = wTInput.getText().toString();
             String workoutWeight = wWInput.getText().toString();
