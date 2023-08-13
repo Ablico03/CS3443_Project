@@ -133,7 +133,7 @@ public class CreateWorkoutActivity extends ComponentActivity{
             if(!f.exists()){
                 try {
                     w = new OutputStreamWriter(openFileOutput(tName, MODE_PRIVATE));
-                    w.write(name + "," + workoutName + "," + workoutType + "," + workoutWeight + "," + workoutSets + "," + workoutReps);
+                    w.write(profileInfo.getName() + "," + workoutName + "," + workoutType + "," + workoutWeight + "," + workoutSets + "," + workoutReps);
                     w.close();
                 }
                 catch(IOException e){
@@ -143,7 +143,7 @@ public class CreateWorkoutActivity extends ComponentActivity{
             else{
                 try {
                     w = new OutputStreamWriter(openFileOutput(tName, MODE_APPEND));
-                    w.append("\n" + name +","+workoutName+","+workoutType+","+workoutWeight+","+workoutSets+","+workoutReps);
+                    w.append("\n" + profileInfo.getName() +","+workoutName+","+workoutType+","+workoutWeight+","+workoutSets+","+workoutReps);
                     w.close();
                 }
                 catch(IOException e){
