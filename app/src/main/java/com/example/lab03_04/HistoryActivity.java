@@ -6,9 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.ComponentActivity;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -18,12 +20,11 @@ public class HistoryActivity extends ComponentActivity {
     private int id;
     Scanner s;
     String str = "";
-    //String a = getFilesDir().getAbsolutePath() + "/accounts.txt";
     String name = "";
-    /*String fileName = "";
+    String fileName = "";
     String[] arr = null;
     String[][] arr1 = null;
-    String f = "";*/
+    String f = "";
 
 
     public void onCreate(Bundle savedInstanceState){
@@ -42,16 +43,16 @@ public class HistoryActivity extends ComponentActivity {
         Weight.setText("500");
         Sets.setText("5");
         Reps.setText("988");
-        //try {
-            name = /*getUserName(a, id)*/"testName";
-        /*} catch (FileNotFoundException e) {
+        try{
+            name = getUserName(id);
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
         fileName = "/" + name + "workout.txt";
         f = getFilesDir().getAbsolutePath() + fileName;
-        int i = 0;
-        i = getHistory(f, i);*/
+        int numWorkouts = 0;
+        numWorkouts = getHistory(f, numWorkouts);
         setupButtons();
     }
 
@@ -95,16 +96,33 @@ public class HistoryActivity extends ComponentActivity {
 
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                /*if (!arr1[i+1][0].equals("")) {//if previous array index contains values, set hist textViews to those values
-                    Name.setText(arr1[i+1][1]);
-                    Type.setText(arr1[i+1][2]);
-                    Weight.setText(arr1[i+1][3]);
-                    Sets.setText(arr1[i+1][4]);
-                    Reps.setText(arr1[i+1][5]);
-                }*/
-                Intent intent = new Intent(HistoryActivity.this, ProfileActivity.class);
-                intent.putExtra("id", id);
-                startActivity(intent);
+                //if (!arr1[i+1][0].equals("")) {//if previous array index contains values, set hist textViews to those values
+                    Name.setText("workoutNmae");
+                    Type.setText("Type of workout");
+                    Weight.setText("500");
+                    Sets.setText("5");
+                    Reps.setText("988");
+                //}
+                File f = new File(getFilesDir().getAbsolutePath() + "/accounts.txt");
+                Scanner s;
+                String str = "";
+                String[] arr = null;
+                try {
+                    if(f.exists()) {
+                        s = new Scanner(openFileInput("accounts.txt"));
+                        while (s.hasNext()) {
+                            str = s.nextLine();
+                            arr = str.split(",");
+                            if (Integer.parseInt(arr[0]) == id) {
+                                Toast.makeText(getBaseContext(), arr[1], Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        s.close();
+                    }
+                }
+                catch (Exception e) {
+                    Toast.makeText(getBaseContext(), "Exception occurred", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -116,25 +134,39 @@ public class HistoryActivity extends ComponentActivity {
             }
         });
     }
-/*
-    private String getUserName(String a, int id) throws FileNotFoundException {
-        String name = "";
-        s = new Scanner(openFileInput(a));
 
-        while (s.hasNext()) {
-            str = s.nextLine();
-            arr = str.split(",");
-            if(Integer.parseInt(arr[0]) == id){
-                name = arr[1];
+    private String getUserName(int id) throws FileNotFoundException {
+        File f = new File(getFilesDir().getAbsolutePath() + "/accounts.txt");
+        Scanner s;
+        String name = "";
+        String str = "";
+        String[] arr = null;
+        try {
+            if(f.exists()) {
+                s = new Scanner(openFileInput("accounts.txt"));
+                while (s.hasNext()) {
+                    str = s.nextLine();
+                    arr = str.split(",");
+                    if (Integer.parseInt(arr[0]) == id) {
+                        name = arr[1];
+                    }
+                }
+                s.close();
             }
         }
-
-        s.close();
+        catch (Exception e) {
+            Toast.makeText(getBaseContext(), "Exception occurred while getting name", Toast.LENGTH_SHORT).show();
+        }
 
         return name;
     }
 
     private int getHistory(String f, int i){
+        TextView Name = (TextView) findViewById(R.id.histNameDisplay);
+        TextView Type = (TextView) findViewById(R.id.histTypeDisplay);
+        TextView Weight = (TextView) findViewById(R.id.histWeightDisplay);
+        TextView Sets = (TextView) findViewById(R.id.histSetsDisplay);
+        TextView Reps = (TextView) findViewById(R.id.histRepsDisplay);
         try {
 
             s = new Scanner(openFileInput(f));
@@ -159,5 +191,5 @@ public class HistoryActivity extends ComponentActivity {
             System.out.println("Error: " + e.getMessage());
         }
         return i;
-    }*/
+    }
 }
